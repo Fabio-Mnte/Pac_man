@@ -2,6 +2,7 @@ class state:
     def __init__(self, tabuleiro, pacman:list, ghost:list, turno:bool, Maxdepth:int):
         self.pacman = pacman
         self.ghost = ghost
+        self.ghost_last = "1"
         self.turno = turno
         self.tabuleiro = tabuleiro
         self.Maxdepth = Maxdepth
@@ -16,15 +17,20 @@ class state:
             self.tabuleiro.get_tabuleiro(z)[x][y] = "P"
             self.pacman = [x,y,z]
         else:
-            x,y,z = self.ghost
-            self.tabuleiro.get_tabuleiro(z)[x][y] = "1"
-            x,y,z = move if move is not None else [-1,-1,-1]
-            if x >= 0 and y >= 0 and 3 > z >= 0:
-                self.tabuleiro.get_tabuleiro(z)[x][y] = "F"
-                self.ghost = [x,y,z]
-            else:
-                x,y,z = self.ghost
-                self.tabuleiro.get_tabuleiro(z)[x][y] = "F"
+            oldx, oldy, oldz = self.ghost
+            x, y, z = move if move is not None else [-1, -1, -1]
+            if x >= 0 and y >= 0 and 3 > z >= 0:  # Verifica se a nova posição é válida
+                # Atualiza a posição do fantasma
+                if self.tabuleiro.get_tabuleiro(z)[x][y] == "P":
+                    # Fantasma captura o Pac-Man
+                    self.tabuleiro.get_tabuleiro(z)[x][y] = "P"
+                else:
+                    self.tabuleiro.get_tabuleiro(oldz)[oldx][oldy] = self.ghost_last
+                    self.ghost_last = self.tabuleiro.get_tabuleiro(z)[x][y]
+                    # Atualiza para a nova posição do fantasma
+                    self.tabuleiro.get_tabuleiro(z)[x][y] = "F"
+                # Atualiza a nova posição do fantasma
+                self.ghost = [x, y, z]
         return self
     
     def movimentos_validos(self):
@@ -57,6 +63,8 @@ class state:
         if comidas == 0:
             return True
         elif self.pacman == self.ghost:
+            print("Game Over...")
+            print("O fantasma Pegou o Pacman")
             return True
         return False
     
