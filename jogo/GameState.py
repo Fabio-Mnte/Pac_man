@@ -105,7 +105,25 @@ class GameState:
 				if self.board_state[l-1][i][j] != "■":
 					moves_min.append([i,j,l-1])
 			moves = moves_min
-		return moves;
+		return moves
+	
+	def straight_distance(self):
+		return abs((self.pos_max[0] - self.pos_min[0]) + (self.pos_max[1] - self.pos_max[1]))
+	
+	def heuristica_manhattan(pacman_pos, ghost_pos):
+		return abs(pacman_pos[0] - ghost_pos[0]) + abs(pacman_pos[1] - ghost_pos[1])
+	
+	def is_valid_position(self, x, y):
+		board = self.board_state
+		rows = len(board)
+		columns = len(board[0])
+			
+		return 0 <= x < rows and 0 <= y < columns and board[x][y] != '■'
+	
+	def posicao_valida(board, x, y):
+		linhas = len(board)
+		colunas = len(board[0])
+		return 0 <= x < colunas and 0 <= y < linhas and board[x][y] != "■"
 
 	def get_new_state(self, old_pos, move):
 		new_board_state = self.board_state.copy()
