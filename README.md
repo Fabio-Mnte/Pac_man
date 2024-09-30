@@ -2,7 +2,7 @@
 Este é um trabalho voltado para a implementação de algoritmos de busca
 
 # Grupo de responsaveis
--Enzo Coimbra (https://github.com/EnzoM5)
+-Enzo Martins (https://github.com/EnzoM5)
 
 -Fábio Monteiro (https://github.com/Fabio-Mnte)
 
