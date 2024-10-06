@@ -82,3 +82,10 @@ class state:
             
             distance = abs(ghost_x - pacman_x) + abs(ghost_y - pacman_y) + abs(ghost_z - pacman_z)
             return distance  
+        
+    def get_distance(self):
+        ghost_x, ghost_y, ghost_z = self.ghost
+        pacman_x, pacman_y, pacman_z = self.pacman
+        
+        distance = abs(ghost_x - pacman_x) + abs(ghost_y - pacman_y) + abs(ghost_z - pacman_z)
+        return distance  
