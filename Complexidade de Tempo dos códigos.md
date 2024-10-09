@@ -18,7 +18,7 @@ def MinMax(state, moves, depth, turno):
         next_state = state.update(move) # O(n)
         _, current_score = MinMax(next_state, next_state.movimentos_validos(), depth - 1, not turno) # O(n^(d-1))
         if turno:  # Maximiza para o Jogador Humano #O(1)
-            if current_score > best_score:
+            if current_score > best_score: #O(1)
                 best_score = current_score
                 best_move = move
         else:  # Minimiza para o Fantasma
@@ -30,10 +30,17 @@ def MinMax(state, moves, depth, turno):
 ```
 # Calculo de Complexidade de Tempo
 
-T = O(n) * O(n) * O(n^(d-1))
-T = (n*n)*n^(d-1)
-T= n^2*n^(d-1)
-T = O(n^d) --> Complexidade de tempo exponencial
+T = O(n)*O(n)*O(n^(d-v))  
+T = O(n²)*O(n^(d-v))  
+T = O(n^(d-v))  
+
+Função Polinomial:  
+O(n^(d-v)) → quando encontra o caminho  
+O(n^d) → quando não encontra o caminho  
+Função Assintótica:  
+O(n^(d-v)) → quando encontra o caminho  
+O(n^d) → quando não encontra o caminho  
+
 
 # Função Hill Climbing
 
@@ -46,18 +53,18 @@ def HillClimb(gamestate: state, depth, moves = []):
     melhorou = True
     melhor_movimento = moves[0]
 
-    while melhorou: # O(1)
+    while melhorou: # O(n)
         melhorou = False #O(1)
         
-        for move in moves: #O(n)
-            next_state = state.update(gamestate, move) # O(n)
+        for move in moves: #O(m*n)
+            next_state = state.update(gamestate, move) # O(n^(d-1))
         
             distancia_nova = next_state.get_distance() #O(1)
 
             if distancia_nova < melhor_distancia: #O(1)
-                melhor_distancia = distancia_nova
-                melhor_movimento = move
-                melhorou = True
+                melhor_distancia = distancia_nova #O(1)
+                melhor_movimento = move #O(1)
+                melhorou = True #O(1)
 
         
 
@@ -68,6 +75,12 @@ def HillClimb(gamestate: state, depth, moves = []):
 
 # Calculo de Complexidade de Tempo
 
-O(1) + O(n)*O(n) + O(1)
-O(n*n) + O(1)
-O(n^2) --> O tempo de complexidade desse algoritmo seria O(n^2), devido a contagem de n^2 interações
+T = O(n)*O(m*n)*O(n^(d-1))  
+O(n²*m)* O(n^(d-1))  
+O(n^(2 + d -1)*m) 
+O(n^(d+1)*m)  
+O((n^d)*m)  
+Função Polinomial:  
+O((n^d)*m)  
+Função Assintótica:  
+O((n^d)*m)  
