@@ -32,6 +32,7 @@ def MinMax(state, moves, depth, turno):
 n-->numero de estados  
 d-->profundidade  
 v--> vertices vizinhos  
+
 T = O(n)*O(n)*O(n^(d-v))  
 T = O(n²)*O(n^(d-v))  
 T = O(n^(d-v))  
@@ -76,9 +77,9 @@ def HillClimb(gamestate: state, depth, moves = []):
 
 # Calculo de Complexidade de Tempo
 
-m--> movimentos
-n--> numero de estados
-d--> profundidade
+m--> movimentos  
+n--> numero de estados  
+d--> profundidade  
 T = O(n)*O(m*n)*O(n^(d-1))  
 O(n²*m)* O(n^(d-1))  
 O(n^(2 + d -1)*m) 
