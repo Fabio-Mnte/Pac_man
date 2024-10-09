@@ -29,9 +29,9 @@ def MinMax(state, moves, depth, turno):
 
 ```
 # Calculo de Complexidade de Tempo
-n-->numero de estados
-d-->profundidade
-v--> vertices vizinhos
+n-->numero de estados  
+d-->profundidade  
+v--> vertices vizinhos  
 T = O(n)*O(n)*O(n^(d-v))  
 T = O(n²)*O(n^(d-v))  
 T = O(n^(d-v))  
