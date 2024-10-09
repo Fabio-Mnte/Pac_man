@@ -15,7 +15,7 @@ def MinMax(state, moves, depth, turno):
 
     # Itera pelos movimentos possíveis
     for move in moves: # O(n)
-        next_state = state.update(move) # O(n)
+        next_state = state.update(move) # O(1)
         _, current_score = MinMax(next_state, next_state.movimentos_validos(), depth - 1, not turno) # O(n^(d-1))
         if turno:  # Maximiza para o Jogador Humano #O(1)
             if current_score > best_score: #O(1)
@@ -29,7 +29,9 @@ def MinMax(state, moves, depth, turno):
 
 ```
 # Calculo de Complexidade de Tempo
-
+n-->numero de estados
+d-->profundidade
+v--> vertices vizinhos
 T = O(n)*O(n)*O(n^(d-v))  
 T = O(n²)*O(n^(d-v))  
 T = O(n^(d-v))  
@@ -46,35 +48,37 @@ O(n^d) → quando não encontra o caminho
 
 ```python
 def HillClimb(gamestate: state, depth, moves = []):
-    if depth == 0: #O(1)
+    if depth == 0:# O(1)
         return [None, gamestate.get_distance()]
     moves = gamestate.movimentos_validos() #O(1)
-    melhor_distancia = gamestate.get_distance()#O(1)
-    melhorou = True
-    melhor_movimento = moves[0]
+    melhor_distancia = gamestate.get_distance() #O(1)
+    melhorou = True# O(1)
+    melhor_movimento = moves[0]# O(1)
 
-    while melhorou: # O(n)
-        melhorou = False #O(1)
-        
+
+    while melhorou: #O(n)
+        melhorou = False
+
+
         for move in moves: #O(m*n)
-            next_state = state.update(gamestate, move) # O(n^(d-1))
-        
-            distancia_nova = next_state.get_distance() #O(1)
+            next_state = state.update(gamestate, move) #O(1)
+           
+            _, distancia_nova = HillClimb(next_state, depth - 1r) #O(n^(d-1))
 
-            if distancia_nova < melhor_distancia: #O(1)
-                melhor_distancia = distancia_nova #O(1)
-                melhor_movimento = move #O(1)
-                melhorou = True #O(1)
+            if distancia_nova < melhor_distancia or distancia_nova == 0: #O(1)
+                melhor_distancia = distancia_nova# O(1)
+                melhor_movimento = move# O(1)
+                melhorou = True# O(1)
 
-        
-
-
-    return melhor_movimento, melhor_distancia
+    return melhor_movimento, melhor_distancia# O(1)
 
 ```
 
 # Calculo de Complexidade de Tempo
 
+m--> movimentos
+n--> numero de estados
+d--> profundidade
 T = O(n)*O(m*n)*O(n^(d-1))  
 O(n²*m)* O(n^(d-1))  
 O(n^(2 + d -1)*m) 
