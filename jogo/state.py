@@ -90,3 +90,21 @@ class state:
         distance = abs(ghost_x - pacman_x) + abs(ghost_y - pacman_y) + abs(ghost_z - pacman_z)
         
         return distance  
+    
+    def clear_range(self, alcance):
+        print(alcance)
+        for i in alcance:
+            x,y,z = i
+            if self.tabuleiro.get_tabuleiro(z)[x][y] == ('\033[1m' + '0' + '\033[0m'):
+                self.tabuleiro.get_tabuleiro(z)[x][y] = "0"
+            elif self.tabuleiro.get_tabuleiro(z)[x][y] == ('\033[1m' + '1' + '\033[0m'):
+                self.tabuleiro.get_tabuleiro(z)[x][y] = "1"
+
+    def update_range(self, alcance):
+        for i in alcance:
+            print(i)
+            x,y,z = i
+            if self.tabuleiro.get_tabuleiro(z)[x][y] == "0":
+                self.tabuleiro.get_tabuleiro(z)[x][y] = ('\033[1m' + '0' + '\033[0m')
+            elif self.tabuleiro.get_tabuleiro(z)[x][y] == "1": 
+                self.tabuleiro.get_tabuleiro(z)[x][y] = ('\033[1m' + '1' + '\033[0m')
